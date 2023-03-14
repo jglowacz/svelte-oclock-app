@@ -1,5 +1,5 @@
 <script>
-    let time = "00:00";
+    let time = "";
     const calculateTime = (value) => {
         const cycleTotal = 6;
         const cycleLength = 90 * 60 * 1000; // 90 minutes to be considered as 1 cycle
@@ -26,16 +26,23 @@
         return getFinalHours;
     }
     // let hours = calculateTime(value);
+    let showSection = true;
+
+    function toggleSection() {
+    showSection = !showSection;
+  }
 </script>
 
 <h4>Sleep Later</h4>
 <input type="time" bind:value={time} />
-<button on:click={calculateTime(time)} type="submit">Submit</button>
+<button on:click={calculateTime(time)} on:click={toggleSection()} type="submit">Submit</button>
 <p>{time}</p>
-<ul>
+{#if toggleSection}
+<ul>  
     {#each calculateTime(time) as hour}
     <li>{hour}</li>
     {:else}
     <li>Empty list</li>
-    {/each}
+    {/each} 
 </ul>
+{/if}
